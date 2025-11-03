@@ -1,8 +1,6 @@
  
 
 """
-This module provides functions for creating prediction targets (labels)
-for time-series stock data, as described in Module 2.4.
 
 It includes functions for:
 1. Classification Target (e.g., 1 for 'Up', 0 for 'Down').
