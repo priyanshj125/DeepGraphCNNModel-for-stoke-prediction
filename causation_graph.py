@@ -20,7 +20,7 @@ try:
 except ImportError:
     print("Error: Could not import 'find_mentioned_tickers'.")
     print("Please ensure 'textual_data_processing.py' is in the same directory.")
-    # Define a dummy function for demonstration purposes if import fails
+  
     def find_mentioned_tickers(raw_text: str, ticker_list: list[str]) -> set[str]:
         print("Warning: Using dummy find_mentioned_tickers function.")
         found = set()
@@ -47,13 +47,11 @@ def build_causation_graph(raw_corpus: list[str], ticker_list: list[str]) -> nx.G
     """
     print("Building causation graph from news corpus...")
     
-    # We use a Counter to store the weights of the edges
-    # The key will be a sorted tuple, e.g., ('AAPL', 'MSFT')
+ 
     edge_weights = Counter()
-    
-    # 1. Iterate through every document in the corpus
+  
     for doc in raw_corpus:
-        # 2. Find all tickers mentioned in this single document
+    
         tickers_in_doc = find_mentioned_tickers(doc, ticker_list)
         
         # 3. If 2 or more tickers are mentioned, they are connected
@@ -68,7 +66,7 @@ def build_causation_graph(raw_corpus: list[str], ticker_list: list[str]) -> nx.G
     # 4. Create the graph
     G = nx.Graph()
     
-    # 5. Add all tickers as nodes (even if they have no edges)
+    # 5. Add all tickers as nodes 
     G.add_nodes_from(ticker_list)
     
     # 6. Add all the weighted edges from our Counter
@@ -78,13 +76,13 @@ def build_causation_graph(raw_corpus: list[str], ticker_list: list[str]) -> nx.G
     print(f"Graph created with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges.")
     return G
 
-# --- Demonstration ----------------------------------------------------------
+
 
 if __name__ == "__main__":
     
     print("--- Starting Causation Graph Demo ---")
     
-    # 1. Define our sample data (same as textual_data_processing.py)
+   
     sample_corpus = [
         "<html><body><p>Wow! Apple (AAPL) stock is up 5% on news of the new iPhone.</p></body></html>",
         "Analysts are bullish on Microsoft's ($MSFT) new AI projects, but Google (GOOG) is still a leader.",
@@ -101,10 +99,7 @@ if __name__ == "__main__":
     # 3. Inspect the resulting graph
     print("\n--- Causation Graph Edges & Weights ---")
     
-    # Expected output:
-    # ('MSFT', 'GOOG') -> weight = 1 (from article 2)
-    # ('AAPL', 'GOOG') -> weight = 2 (from articles 3 and 5)
-    # ('AAPL', 'MSFT') -> weight = 1 (from article 3)
+  
     
     for edge in G_causation.edges(data=True):
         print(f"  {edge}")
